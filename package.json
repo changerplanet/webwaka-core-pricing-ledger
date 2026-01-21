@@ -4,6 +4,7 @@
   "description": "Core module for managing pricing data and ledger operations",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo 'No tests yet' && exit 0",
     "typecheck": "echo 'No TypeScript files yet' && exit 0",
     "lint": "echo 'No source files yet' && exit 0",
