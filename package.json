@@ -1,0 +1,15 @@
+{
+  "name": "webwaka-core-pricing-ledger",
+  "version": "0.1.0",
+  "description": "Core module for managing pricing data and ledger operations",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo 'No tests yet' && exit 0",
+    "typecheck": "echo 'No TypeScript files yet' && exit 0",
+    "lint": "echo 'No source files yet' && exit 0",
+    "validate-manifest": "node -e \"const fs=require('fs'); const m=JSON.parse(fs.readFileSync('module.manifest.json')); if(!m.moduleId||!m.class||!m.version){process.exit(1)}\""
+  },
+  "keywords": ["webwaka", "core", "module"],
+  "author": "WebWaka Core Team",
+  "license": "UNLICENSED"
+}

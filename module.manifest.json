@@ -1,0 +1,12 @@
+{
+  "moduleId": "webwaka-core-pricing-ledger",
+  "class": "core",
+  "version": "0.1.0",
+  "capabilities": [],
+  "dependencies": [],
+  "metadata": {
+    "name": "Pricing Ledger",
+    "description": "Core module for managing pricing data and ledger operations",
+    "owner": "WebWaka Core Team"
+  }
+}
