@@ -2,14 +2,32 @@
   "name": "webwaka-core-pricing-ledger",
   "version": "0.1.0",
   "description": "Core module for managing pricing data and ledger operations",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
   "scripts": {
-    "test": "echo 'No tests yet' && exit 0",
-    "typecheck": "echo 'No TypeScript files yet' && exit 0",
-    "lint": "echo 'No source files yet' && exit 0",
+    "build": "tsc",
+    "test": "vitest run --coverage",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "echo 'No linting configured' && exit 0",
     "validate-manifest": "node -e \"const fs=require('fs'); const m=JSON.parse(fs.readFileSync('module.manifest.json')); if(!m.moduleId||!m.class||!m.version){process.exit(1)}\""
   },
-  "keywords": ["webwaka", "core", "module"],
+  "keywords": [
+    "webwaka",
+    "core",
+    "module",
+    "pricing"
+  ],
   "author": "WebWaka Core Team",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@types/node": "^20.19.30",
+    "@vitest/coverage-v8": "^1.6.1",
+    "typescript": "^5.9.3",
+    "vitest": "^1.6.1"
+  },
+  "dependencies": {
+    "zod": "^3.25.76"
+  }
 }

@@ -1,0 +1,219 @@
+
+WebWaka Core Pricing Logic
+
+⸻
+
+CONTEXT (READ CAREFULLY)
+
+You are implementing Phase 3B — Core Pricing Logic for the WebWaka platform.
+
+This is a CORE ENGINE MODULE.
+
+🚫 This is NOT UI
+🚫 This is NOT payments
+🚫 This is NOT subscriptions
+🚫 This is NOT billing execution
+🚫 This is NOT persistence
+
+This is a pure, deterministic pricing evaluation engine whose outputs will later be consumed by:
+	•	Core Ledger
+	•	Core Entitlements
+	•	Core Incentives
+	•	Suites (POS, SVM, MVM, etc.)
+
+⸻
+
+SOURCE OF TRUTH (IMMUTABLE)
+
+WebWaka Ecosystem Constitution v1.5+
+
+Mandatory principles:
+	•	Deterministic systems only
+	•	Tenant isolation everywhere
+	•	Nigeria-first (currency aware, but pricing itself is currency-agnostic)
+	•	Pure functions
+	•	No side effects
+	•	Ledger-ready outputs
+	•	Append-only economics (no mutation)
+
+⸻
+
+TARGET REPOSITORY (MANDATORY)
+
+Before doing ANYTHING ELSE:
+
+1️⃣ Clone this repository fully
+
+https://github.com/changerplanet/webwaka-core-pricing-ledger
+
+❗ If the repo is not cloned successfully, STOP immediately and report.
+
+All work must happen inside this repo.
+Do NOT scaffold a new project.
+Do NOT work outside the repo.
+
+⸻
+
+OBJECTIVE
+
+Implement the Core Pricing Engine that:
+	•	Defines pricing plans and immutable plan versions
+	•	Evaluates pricing deterministically
+	•	Produces ledger-ready pricing results
+	•	Can be reused by any suite, partner, or tenant
+
+⸻
+
+SCOPE (LOCKED)
+
+✅ YOU MUST IMPLEMENT
+
+1️⃣ Domain Models (Zod-validated)
+	•	PricingPlan
+	•	PricingPlanVersion (IMMUTABLE once created)
+	•	PricingComponent (discriminated union):
+	•	FlatFeeComponent
+	•	UsageComponent
+	•	SeatComponent
+	•	TieredComponent (volume + graduated)
+	•	TimeBoundComponent
+	•	PricingContext
+	•	PricingLineItem
+	•	PricingResult
+
+⸻
+
+2️⃣ Pricing Engine (PURE)
+
+Implement:
+
+PricingEngine.evaluate(
+  planVersion: PricingPlanVersion,
+  context: PricingContext
+): PricingResult
+
+Rules:
+	•	No I/O
+	•	No Date.now()
+	•	No randomness
+	•	No persistence
+	•	Same input → same output (always)
+
+⸻
+
+3️⃣ Ledger-Ready Output (MANDATORY)
+
+PricingResult must contain:
+	•	currency
+	•	totalAmount
+	•	lineItems[]
+	•	pricingVersionId
+	•	tenantId
+	•	idempotencyKey-friendly identifiers
+	•	NO paymentId
+	•	NO subscription state
+	•	NO tax logic
+	•	NO incentives logic
+
+⸻
+
+4️⃣ Immutability Enforcement
+	•	PricingPlanVersion must be immutable
+	•	Any attempt to modify must throw or be prevented structurally
+
+⸻
+
+🚫 STRICT EXCLUSIONS (NON-NEGOTIABLE)
+
+DO NOT implement:
+	•	Payments
+	•	Subscriptions
+	•	Coupons
+	•	Discounts
+	•	Taxes
+	•	UI
+	•	APIs
+	•	Databases
+	•	Feature flags
+	•	Incentives
+
+Violating scope = automatic failure.
+
+⸻
+
+🧪 TESTING REQUIREMENTS (MANDATORY)
+
+You MUST write tests proving:
+
+1️⃣ Determinism
+
+Same input evaluated 10× → identical JSON output
+
+2️⃣ Component correctness
+
+Each pricing component type evaluates correctly
+
+3️⃣ Immutability
+
+PricingPlanVersion cannot be mutated
+
+4️⃣ Ledger compatibility
+
+Output can be safely passed to Core Ledger
+
+5️⃣ Tenant isolation
+
+PricingContext always enforces tenantId
+
+⸻
+
+🛑 HARD STOP CONDITION (REQUIRED TEST)
+
+Include a test explicitly named:
+
+“Hard Stop — Pricing engine produces deterministic, ledger-ready output without side effects”
+
+This test must prove:
+	•	No side effects
+	•	No time dependence
+	•	No payment coupling
+	•	Deterministic output
+
+⸻
+
+CI / QUALITY RULES
+	•	npm test MUST fail on failure
+	•	npm run build MUST pass
+	•	Coverage ≥ 80%
+	•	No masked commands (|| true forbidden)
+
+⸻
+
+FINAL DELIVERABLE
+
+When finished, produce a Completion Summary including:
+	•	APIs implemented
+	•	Pricing components supported
+	•	Test count + coverage
+	•	Proof of hard stop condition
+	•	Final commit SHA
+
+⸻
+
+⛔ HARD STOP
+
+After submitting the completion report:
+
+⛔ STOP
+⛔ Do NOT proceed to Phase 3C
+⛔ Await explicit authorization
+
+⸻
+
+ACKNOWLEDGEMENT FORMAT
+
+Reply only with:
+
+“Phase 3B acknowledged. Proceeding exactly as instructed.”
+
+Then execute.
